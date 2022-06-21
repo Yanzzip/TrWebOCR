@@ -19,7 +19,7 @@ import json
 from backend.tools.np_encoder import NpEncoder
 from backend.tools import log
 import logging
-
+from data import extract_json,extract_info
 logger = logging.getLogger(log.LOGGER_ROOT_NAME + '.' + __name__)
 
 
@@ -113,9 +113,11 @@ class TrRun(tornado.web.RequestHandler):
 
         # 进行ocr
         res = tr.run(img.copy().convert("L"), flag=tr.FLAG_ROTATED_RECT)
-
+        # 处理得到的数据 血常规
+        res0 = extract_json(res)
+        res1 = extract_info(res0) 
         response_data = {'code': 200, 'msg': '成功',
-                         'data': {'raw_out': res,
+                         'data': {'raw_out': res1,
                                   'speed_time': round(time.time() - start_time, 2)}}
         if is_draw != '0':
             img_detected = img.copy()
