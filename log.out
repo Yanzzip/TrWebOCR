@@ -1,0 +1,10 @@
+nohup: ignoring input
+tr 2.3.1 https://github.com/myhub/tr
+Traceback (most recent call last):
+  File "/home/yanrui/TrWebOCR/backend/main.py", line 59, in <module>
+    server.bind(port)
+  File "/miniconda3/lib/python3.9/site-packages/tornado/tcpserver.py", line 204, in bind
+    sockets = bind_sockets(
+  File "/miniconda3/lib/python3.9/site-packages/tornado/netutil.py", line 161, in bind_sockets
+    sock.bind(sockaddr)
+OSError: [Errno 98] Address already in use

@@ -17,6 +17,7 @@ from backend.tools.get_host_ip import host_ip
 from backend.tools import manage_running_platform
 from backend.tools import log
 
+
 logger = logging.getLogger(log.LOGGER_ROOT_NAME + '.' + __name__)
 
 current_path = os.path.dirname(__file__)
@@ -40,7 +41,7 @@ def make_app():
 
 
 if __name__ == "__main__":
-    define("port", default=5022, type=int, help='指定运行时端口号')
+    define("port", default=5017, type=int, help='指定运行时端口号')
     define("open_gpu", default=0, type=int, help='是否开启gpu')
 
     tornado.options.parse_command_line()

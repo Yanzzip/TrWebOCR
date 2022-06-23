@@ -1,0 +1,39 @@
+tr 2.3.1 https://github.com/myhub/tr
+2022/06/21 18:24:23 - TrWebOCRLog.backend.webInterface.tr_run - [INFO] | {"ip": "8.142.14.63:5024", "return": {"code": 200, "msg": "\u6210\u529f", "data": {"raw_out": {"\u8840\u7ea2\u86cb\u767d": {"Value": 123.0, "Lvalue": 120.0, "Hvalue": 155.0, "Level": "E"}, "\u767d\u7ec6\u80de\u6570": {"Value": 4.1, "Lvalue": 5.0, "Hvalue": 12.0, "Level": "L"}, "\u7ea2\u7ec6\u80de\u6570": {"Value": 4.44, "Lvalue": 4.0, "Hvalue": 5.2, "Level": "E"}, "\u4e2d\u6027\u7c92\u7ec6\u80de\u767e\u5206\u6bd4": {"Value": 29.24, "Lvalue": 45.0, "Hvalue": 77.0, "Level": "L"}, "\u6dcb\u5df4\u7ec6\u80de\u767e\u5206\u6bd4": {"Value": 55.94, "Lvalue": 20.0, "Hvalue": 40.0, "Level": "H"}}, "speed_time": 2.78}}, "time": "2022-06-21 18:24:23"}
+[I 220621 18:24:23 tr_run:155] {"ip": "8.142.14.63:5024", "return": {"code": 200, "msg": "\u6210\u529f", "data": {"raw_out": {"\u8840\u7ea2\u86cb\u767d": {"Value": 123.0, "Lvalue": 120.0, "Hvalue": 155.0, "Level": "E"}, "\u767d\u7ec6\u80de\u6570": {"Value": 4.1, "Lvalue": 5.0, "Hvalue": 12.0, "Level": "L"}, "\u7ea2\u7ec6\u80de\u6570": {"Value": 4.44, "Lvalue": 4.0, "Hvalue": 5.2, "Level": "E"}, "\u4e2d\u6027\u7c92\u7ec6\u80de\u767e\u5206\u6bd4": {"Value": 29.24, "Lvalue": 45.0, "Hvalue": 77.0, "Level": "L"}, "\u6dcb\u5df4\u7ec6\u80de\u767e\u5206\u6bd4": {"Value": 55.94, "Lvalue": 20.0, "Hvalue": 40.0, "Level": "H"}}, "speed_time": 2.78}}, "time": "2022-06-21 18:24:23"}
+[I 220621 18:24:23 web:2239] 200 POST /api/tr-run/ (115.27.208.51) 2839.72ms
+  File "backend/main.py", line 60
+    print(f'Server is running: http://{host_ip()}:{port}')
+                                                        ^
+SyntaxError: invalid syntax
+  File "backend/main.py", line 60
+    print(f'Server is running: http://{host_ip()}:{port}')
+                                                        ^
+SyntaxError: invalid syntax
+tr 2.3.1 https://github.com/myhub/tr
+Traceback (most recent call last):
+  File "/home/yanrui/TrWebOCR/backend/main.py", line 58, in <module>
+    server.bind(port)
+  File "/miniconda3/lib/python3.9/site-packages/tornado/tcpserver.py", line 204, in bind
+    sockets = bind_sockets(
+  File "/miniconda3/lib/python3.9/site-packages/tornado/netutil.py", line 161, in bind_sockets
+    sock.bind(sockaddr)
+OSError: [Errno 98] Address already in use
+tr 2.3.1 https://github.com/myhub/tr
+Traceback (most recent call last):
+  File "/home/yanrui/TrWebOCR/backend/main.py", line 58, in <module>
+    server.bind(port)
+  File "/miniconda3/lib/python3.9/site-packages/tornado/tcpserver.py", line 204, in bind
+    sockets = bind_sockets(
+  File "/miniconda3/lib/python3.9/site-packages/tornado/netutil.py", line 161, in bind_sockets
+    sock.bind(sockaddr)
+OSError: [Errno 98] Address already in use
+tr 2.3.1 https://github.com/myhub/tr
+Traceback (most recent call last):
+  File "/home/yanrui/TrWebOCR/backend/main.py", line 58, in <module>
+    server.bind(port)
+  File "/miniconda3/lib/python3.9/site-packages/tornado/tcpserver.py", line 204, in bind
+    sockets = bind_sockets(
+  File "/miniconda3/lib/python3.9/site-packages/tornado/netutil.py", line 161, in bind_sockets
+    sock.bind(sockaddr)
+OSError: [Errno 98] Address already in use
