@@ -115,7 +115,8 @@ class TrRun(tornado.web.RequestHandler):
         res = tr.run(img.copy().convert("L"), flag=tr.FLAG_ROTATED_RECT)
         # 处理得到的数据 血常规
         res0 = extract_json(res)
-        res1 = extract_info(res0) 
+        res1 = extract_info(res0)
+        print(res1)
         response_data = {'code': 200, 'msg': '成功',
                          'data': {'raw_out': res1,
                                   'speed_time': round(time.time() - start_time, 2)}}

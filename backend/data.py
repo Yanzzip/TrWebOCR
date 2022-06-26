@@ -106,7 +106,7 @@ def determine_order(wordlist):
 
 
 
-def extarct_info(wordlist):
+def extract_info(wordlist):
     '''
     判断问题是否是关于手术费用
     '''
