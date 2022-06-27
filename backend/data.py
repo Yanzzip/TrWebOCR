@@ -1,5 +1,18 @@
 import re
-import json
+import time
+
+def safe_float(object):
+    'safe version of float()'
+    try:
+        retval = float(object)
+    except (TypeError, ValueError):
+        print('object')
+        object = object.split(' ')[0]
+        try:
+            retval = float(object)
+        except (TypeError, ValueError):
+            retval = 0
+    return retval
 
 def is_key_words(question):
     '''
@@ -42,6 +55,49 @@ def is_key_words_order(question):
     
     return False , ''
 
+def is_key_words_person(question):
+    '''
+    判断
+    '''
+    
+    if '姓名' in question and ':' in question:
+        return True , '姓名',question.split(':')[-1]
+    if '姓名' in question and '：' in question:
+        return True , '姓名',question.split('：')[-1]
+    if '年龄' in question and ':' in question:
+        return True , '年龄',question.split(':')[-1]
+    if '年龄' in question and '：' in question:
+        return True , '年龄',question.split('：')[-1]
+    if '病人类型' in question and ':' in question:
+        return True , '病人类型',question.split(':')[-1]
+    if '病人类型' in question and '：' in question:
+        return True , '病人类型',question.split('：')[-1]
+    if '标本类型' in question and ':' in question:
+        return True , '标本类型',question.split(':')[-1]
+    if '标本类型' in question and '：' in question:
+        return True , '标本类型',question.split('：')[-1]
+    if '性别' in question and ':' in question:
+        return True , '性别',question.split(':')[-1]
+    if '性别' in question and '：' in question:
+        return True , '性别',question.split('：')[-1]
+    if '诊断' in question and ':' in question:
+        return True , '诊断',question.split(':')[-1]
+    if '诊断' in question and '：' in question:
+        return True , '诊断',question.split('：')[-1]
+    if '科室' in question and ':' in question:
+        return True , '科室',question.split(':')[-1]
+    if '科室' in question and '：' in question:
+        return True , '科室',question.split('：')[-1]
+    if '卡号' in question and ':' in question:
+        return True , '卡号',question.split(':')[-1]
+    if '卡号' in question and '：' in question:
+        return True , '卡号',question.split('：')[-1]
+    if '医院' in question and '报告单' in question:
+        return True , '医院',question.split('医院')[0]+'医院'
+    if re.search(r"(\d{4}[-/]\d{1,2}[-/]\d{1,2})",question) != None:
+        return True , '检查日期',re.search(r"(\d{4}[-/]\d{1,2}[-/]\d{1,2})",question)[0]
+    
+    return False , '',''
 
 def del_noise_words(question):
     '''
@@ -104,9 +160,45 @@ def determine_order(wordlist):
             return True
     return False
 
+def extarct_person_info(wordlist):
+    '''
+    判断问题是否是关于个人信息
+    '''
+    del_noise_list(wordlist)
+    #print(wordlist)
+    npair={}
+    wlen = len(wordlist)
+    for i in range(wlen):
+        isTrue , keyword, value = is_key_words_person(wordlist[i])
+        if isTrue : 
+            npair[keyword] = value
+            if(' ' == value or '' == value ):
+                value = wordlist[i+1] 
+                npair[keyword] = value
+            else:
+                npair[keyword] = value
+        
+        #拼接
+        if '诊' in wordlist[i] and '断' in wordlist[i+1]:
+            wordlist[i+1] = wordlist[i]+wordlist[i+1]
+        if '姓' in wordlist[i] and '名' in wordlist[i+1]:
+            wordlist[i+1] = wordlist[i]+wordlist[i+1]
+        if '性' in wordlist[i] and '别' in wordlist[i+1]:
+            wordlist[i+1] = wordlist[i]+wordlist[i+1]
+        if '年' in wordlist[i] and '龄' in wordlist[i+1]:
+            wordlist[i+1] = wordlist[i]+wordlist[i+1]
+        if '卡' in wordlist[i] and '号' in wordlist[i+1]:
+            wordlist[i+1] = wordlist[i]+wordlist[i+1]
+        if '科' in wordlist[i] and '室' in wordlist[i+1]:
+         wordlist[i+1] = wordlist[i]+wordlist[i+1]
+    #print(wordlist)
+    if '性别' in npair:
+        if npair['性别'] != '男' and  npair['性别'] !='女':
+            del(npair['性别'])           
+           
+    return npair
 
-
-def extract_info(wordlist):
+def extarct_info(wordlist):
     '''
     判断问题是否是关于手术费用
     '''
@@ -126,7 +218,7 @@ def extract_info(wordlist):
             npair={}
             print(wordlist[i])
             print(wordlist[i+1])
-            npair['Value']=float(del_noise_words(wordlist[i+1]))            
+            npair['Value']=safe_float(del_noise_words(wordlist[i+1]))            
             if('-' in wordlist[i+2] or '~' in wordlist[i+2] ):
                 wordlist[i+2] = del_noise_words(wordlist[i+2])
                 print( wordlist[i+2])
@@ -134,8 +226,8 @@ def extract_info(wordlist):
                 while '' in LH:
                     LH.remove('')
                 print(LH)
-                npair['Lvalue']=float(LH[0])
-                npair['Hvalue']=float(LH[1])
+                npair['Lvalue']=safe_float(LH[0])
+                npair['Hvalue']=safe_float(LH[1])
                 if(npair['Value']>npair['Hvalue']):
                      npair['Level']='H'
                 elif(npair['Value']<npair['Lvalue']):
@@ -148,9 +240,9 @@ def extract_info(wordlist):
                 LH=del_range_noise_words(wordlist[i+3]).split('-')
                 while '' in LH:
                     LH.remove('')
-                npair['Lvalue']=float(LH[0])
+                npair['Lvalue']=safe_float(LH[0])
                 print(LH[1])
-                npair['Hvalue']=float(LH[1])
+                npair['Hvalue']=safe_float(LH[1])
                 if(npair['Value']>npair['Hvalue']):
                      npair['Level']='H'
                 elif(npair['Value']<npair['Lvalue']):
@@ -167,4 +259,3 @@ def extract_json(textlist):
     for i in textlist:
         puretext.append(i[1])
     return puretext
-    
