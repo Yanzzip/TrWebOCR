@@ -19,7 +19,7 @@ import json
 from backend.tools.np_encoder import NpEncoder
 from backend.tools import log
 import logging
-from data import extract_json,extract_info,extarct_person_info
+from data import extract_json,extract_info,extract_person_info
 logger = logging.getLogger(log.LOGGER_ROOT_NAME + '.' + __name__)
 
 
@@ -116,7 +116,7 @@ class TrRun(tornado.web.RequestHandler):
         # 处理得到的数据 血常规
         res0 = extract_json(res)
         res1 = extract_info(res0)
-        resp = extarct_person_info(res0)
+        resp = extract_person_info(res0)
         print(res1)
         response_data = {'code': 200, 'msg': '成功',
                          'data': {'raw_out': res1,

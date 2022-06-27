@@ -160,7 +160,7 @@ def determine_order(wordlist):
             return True
     return False
 
-def extarct_person_info(wordlist):
+def extract_person_info(wordlist):
     '''
     判断问题是否是关于个人信息
     '''
@@ -198,7 +198,7 @@ def extarct_person_info(wordlist):
            
     return npair
 
-def extarct_info(wordlist):
+def extract_info(wordlist):
     '''
     判断问题是否是关于手术费用
     '''
